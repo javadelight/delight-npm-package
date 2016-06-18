@@ -13,7 +13,7 @@ public class NpmPackage {
             // final File workDir = File.createTempFile("temp-file-name",
             // ".tmp");
 
-            final File workDir = Files.createTempDirectory("npmwork", null).toFile();
+            final File workDir = Files.createTempDirectory("npmwork").toFile();
 
         } catch (final IOException e) {
             throw new RuntimeException(e);
