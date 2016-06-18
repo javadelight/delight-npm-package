@@ -1,8 +1,6 @@
 package delight.npmpackage;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 
 import org.zeroturnaround.zip.ZipUtil;
 
@@ -18,7 +16,8 @@ public class NpmPackage {
             // final File workDir = File.createTempFile("temp-file-name",
             // ".tmp");
 
-            final File workDir = Files.createTempDirectory("npmwork").toFile();
+            final File workDir = new File("/home/adminuser/Desktop/tmp");
+            // Files.createTempDirectory("npmwork").toFile();
 
             FilesJre.wrap(workDir).assertFile("index.js").setText(indexJs);
             FilesJre.wrap(workDir).assertFile("package.json").setText(packageJson);
@@ -29,7 +28,7 @@ public class NpmPackage {
 
             ZipUtil.pack(workDir, target);
 
-        } catch (final IOException e) {
+        } catch (final Exception e) {
             throw new RuntimeException(e);
         }
 
