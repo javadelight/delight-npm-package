@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Template: Source 
-	+ GWT + in workspace dependencies 27.11.2010 --><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	+ GWT + in workspace dependencies 27.11.2010 -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<groupId>org.javadelight</groupId>
 	<artifactId>delight-npm-package</artifactId>
 	<version>0.0.2-SNAPSHOT</version>
@@ -7,7 +9,7 @@
 	<url>https://github.com/javadelight/delight-npm-package</url>
 
 	<properties>
-		
+
 		<module.importedPackages>
 			org.junit,
 			*
@@ -22,6 +24,12 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>de.mxro.process</groupId>
+			<artifactId>java-start-process</artifactId>
+			<version>0.1.1</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.javadelight</groupId>
 			<artifactId>delight-functional</artifactId>
 			<version>0.0.7</version>
@@ -33,7 +41,7 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 
 
 	</dependencies>
@@ -118,8 +126,8 @@
 						</goals>
 						<configuration>
 							<tasks>
-								<delete file="${basedir}/META-INF/MANIFEST.MF"/>
-								<copy file="target/classes/META-INF/MANIFEST.MF" tofile="${basedir}/META-INF/MANIFEST.MF"/>
+								<delete file="${basedir}/META-INF/MANIFEST.MF" />
+								<copy file="target/classes/META-INF/MANIFEST.MF" tofile="${basedir}/META-INF/MANIFEST.MF" />
 							</tasks>
 						</configuration>
 					</execution>
@@ -241,7 +249,7 @@
 
 		</plugins>
 
-		
+
 
 
 	</build>
