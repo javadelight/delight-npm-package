@@ -12,7 +12,7 @@
 			org.junit,
 			*
 		</module.importedPackages>
-		<module.exportedPackages>!delight.simplelog.internal*,delight.simplelog*
+		<module.exportedPackages>!delight.npmpackage.internal*,delight.npmpackage*
 		</module.exportedPackages>
 		<module.serviceDefinitions>
 		</module.serviceDefinitions>
