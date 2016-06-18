@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Enumeration;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
@@ -31,6 +32,15 @@ public class NpmPackage {
 
     private final static String getPackageJson(final ZipFile zipFile) {
         final Enumeration entries = zipFile.entries();
+
+        while (entries.hasMoreElements()) {
+            final ZipEntry ze = (ZipEntry) entries.nextElement();
+            if (ze.getName() == "package.json") {
+
+            }
+        }
+
+        throw new IllegalArgumentException("The passed zip file must contain a package.json file.");
 
     }
 
