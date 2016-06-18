@@ -1,6 +1,7 @@
 package delight.npmpackage;
 
 import java.io.File;
+import java.nio.file.Files;
 
 import org.zeroturnaround.zip.ZipUtil;
 
@@ -16,8 +17,7 @@ public class NpmPackage {
             // final File workDir = File.createTempFile("temp-file-name",
             // ".tmp");
 
-            final File workDir = new File("/home/adminuser/Desktop/tmp");
-            // Files.createTempDirectory("npmwork").toFile();
+            final File workDir = Files.createTempDirectory("npmwork").toFile();
 
             FilesJre.wrap(workDir).assertFile("index.js").setText(indexJs);
             FilesJre.wrap(workDir).assertFile("package.json").setText(packageJson);
@@ -26,7 +26,7 @@ public class NpmPackage {
                 System.out.println(Spawn.sh(workDir, "npm install " + dependency + " --save"));
             }
 
-            ZipUtil.pack(workDir, target);
+            ZipUtil.pack(workDir, target, false);
 
         } catch (final Exception e) {
             throw new RuntimeException(e);
