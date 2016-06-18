@@ -8,19 +8,21 @@ import java.nio.file.Files;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import java.util.zip.ZipOutputStream;
 
+import de.mxro.file.Jre.FilesJre;
 import de.mxro.process.Spawn;
 
 public class NpmPackage {
 
-    public static void perform(final ZipOutputStream target, final String[] npmDependencies) {
+    public static void perform(final ZipFile target, final String[] npmDependencies) {
 
         try {
             // final File workDir = File.createTempFile("temp-file-name",
             // ".tmp");
 
             final File workDir = Files.createTempDirectory("npmwork").toFile();
+
+            FilesJre.wrap(workDir).assertFile("package.json").setText(getPackageJson(target));
 
             for (final String dependency : npmDependencies) {
                 System.out.println(Spawn.sh("npm install " + dependency + " --save"));
