@@ -14,7 +14,7 @@ import de.mxro.process.Spawn;
 
 public class NpmPackage {
 
-    public static void perform(final ZipFile target, final String[] npmDependencies) {
+    public static void perform(final File target, final String[] npmDependencies) {
 
         try {
             // final File workDir = File.createTempFile("temp-file-name",
@@ -22,7 +22,7 @@ public class NpmPackage {
 
             final File workDir = Files.createTempDirectory("npmwork").toFile();
 
-            FilesJre.wrap(workDir).assertFile("package.json").setText(getPackageJson(target));
+            FilesJre.wrap(workDir).assertFile("package.json").setText(getPackageJson(new ZipFile(target)));
 
             for (final String dependency : npmDependencies) {
                 System.out.println(Spawn.sh("npm install " + dependency + " --save"));
@@ -50,6 +50,21 @@ public class NpmPackage {
                 }
 
                 br.close();
+                return lines;
+            }
+        }
+
+        throw new IllegalArgumentException("The passed zip file must contain a package.json file.");
+
+    }
+
+    private final static String setPackageJson(final ZipFile zipFile) throws IOException {
+        final Enumeration<? extends ZipEntry> entries = zipFile.entries();
+
+        while (entries.hasMoreElements()) {
+            final ZipEntry ze = entries.nextElement();
+            if (ze.getName() == "package.json") {
+
                 return lines;
             }
         }
