@@ -14,7 +14,7 @@ import de.mxro.process.Spawn;
 
 public class NpmPackage {
 
-    public static void perform(final File target, final String[] npmDependencies) {
+    public static void perform(final String packageJson, final File target, final String[] npmDependencies) {
 
         try {
             // final File workDir = File.createTempFile("temp-file-name",
@@ -22,7 +22,7 @@ public class NpmPackage {
 
             final File workDir = Files.createTempDirectory("npmwork").toFile();
 
-            FilesJre.wrap(workDir).assertFile("package.json").setText(getPackageJson(new ZipFile(target)));
+            FilesJre.wrap(workDir).assertFile("package.json").setText(packageJson);
 
             for (final String dependency : npmDependencies) {
                 System.out.println(Spawn.sh("npm install " + dependency + " --save"));
