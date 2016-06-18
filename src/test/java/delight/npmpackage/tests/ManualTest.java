@@ -12,7 +12,7 @@ public class ManualTest {
 
         final File target = new File("/home/adminuser/Desktop/tmp/service.zip");// Files.createTempDirectory("npmwork").toFile();
 
-        NpmPackage.perform(DefaultPackageJson.get(), target, new String[] { "async" });
+        NpmPackage.perform("var async = require('async');", DefaultPackageJson.get(), target, new String[] { "async" });
 
     }
 
