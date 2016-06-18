@@ -17,7 +17,9 @@ public class NpmPackage {
             final File workDir = Files.createTempDirectory("npmwork").toFile();
 
             FilesJre.wrap(workDir).assertFile("index.js").setText(params.indexJs);
-            FilesJre.wrap(workDir).assertFile("lib.js").setText(params.libJs);
+            if (params.libJs != null) {
+                FilesJre.wrap(workDir).assertFile("lib.js").setText(params.libJs);
+            }
             FilesJre.wrap(workDir).assertFile("package.json").setText(params.packageJson);
 
             for (final String dependency : params.npmDependencies) {
