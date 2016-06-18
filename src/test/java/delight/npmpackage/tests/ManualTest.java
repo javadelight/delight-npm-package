@@ -12,7 +12,7 @@ public class ManualTest {
 
     public static void main(final String[] args) throws IOException {
 
-        final File workDir = new File("/home/adminuser/Desktop/tmp");// Files.createTempDirectory("npmwork").toFile();
+        final File target = new File("/home/adminuser/Desktop/tmp/service.zip");// Files.createTempDirectory("npmwork").toFile();
 
         FilesJre.wrap(workDir).assertFile("package.json").setText(DefaultPackageJson.get());
 

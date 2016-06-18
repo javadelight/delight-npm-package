@@ -1,13 +1,10 @@
 package delight.npmpackage;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
-import java.util.Enumeration;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
+
+import org.zeroturnaround.zip.ZipUtil;
 
 import de.mxro.file.Jre.FilesJre;
 import de.mxro.process.Spawn;
@@ -28,48 +25,11 @@ public class NpmPackage {
                 System.out.println(Spawn.sh("npm install " + dependency + " --save"));
             }
 
+            ZipUtil.pack(workDir, target);
+
         } catch (final IOException e) {
             throw new RuntimeException(e);
         }
-
-    }
-
-    private final static String getPackageJson(final ZipFile zipFile) throws IOException {
-        final Enumeration<? extends ZipEntry> entries = zipFile.entries();
-
-        while (entries.hasMoreElements()) {
-            final ZipEntry ze = entries.nextElement();
-            if (ze.getName() == "package.json") {
-
-                final BufferedReader br = new BufferedReader(new InputStreamReader(zipFile.getInputStream(ze)));
-
-                String lines = "";
-                String line;
-                while ((line = br.readLine()) != null) {
-                    lines += line;
-                }
-
-                br.close();
-                return lines;
-            }
-        }
-
-        throw new IllegalArgumentException("The passed zip file must contain a package.json file.");
-
-    }
-
-    private final static String setPackageJson(final ZipFile zipFile) throws IOException {
-        final Enumeration<? extends ZipEntry> entries = zipFile.entries();
-
-        while (entries.hasMoreElements()) {
-            final ZipEntry ze = entries.nextElement();
-            if (ze.getName() == "package.json") {
-
-                return lines;
-            }
-        }
-
-        throw new IllegalArgumentException("The passed zip file must contain a package.json file.");
 
     }
 
