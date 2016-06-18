@@ -23,7 +23,7 @@ public class NpmPackage {
             FilesJre.wrap(workDir).assertFile("package.json").setText(packageJson);
 
             for (final String dependency : npmDependencies) {
-                System.out.println(Spawn.sh(workDir, "npm install " + dependency + " --save"));
+                Spawn.sh(workDir, "npm install " + dependency + " --save");
             }
 
             ZipUtil.pack(workDir, target, false);
