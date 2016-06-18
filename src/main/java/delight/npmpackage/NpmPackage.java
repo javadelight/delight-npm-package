@@ -10,23 +10,21 @@ import de.mxro.process.Spawn;
 
 public class NpmPackage {
 
-    public static void perform(final String indexJs, final String packageJson, final File target,
-            final String[] npmDependencies) {
+    public static void perform(final NpmPackageParameters params) {
 
         try {
-            // final File workDir = File.createTempFile("temp-file-name",
-            // ".tmp");
 
             final File workDir = Files.createTempDirectory("npmwork").toFile();
 
-            FilesJre.wrap(workDir).assertFile("index.js").setText(indexJs);
-            FilesJre.wrap(workDir).assertFile("package.json").setText(packageJson);
+            FilesJre.wrap(workDir).assertFile("index.js").setText(params.indexJs);
+            FilesJre.wrap(workDir).assertFile("lib.js").setText(params.libJs);
+            FilesJre.wrap(workDir).assertFile("package.json").setText(params.packageJson);
 
-            for (final String dependency : npmDependencies) {
+            for (final String dependency : params.npmDependencies) {
                 Spawn.sh(workDir, "npm install " + dependency + " --save");
             }
 
-            ZipUtil.pack(workDir, target, false);
+            ZipUtil.pack(workDir, params.target, false);
 
         } catch (final Exception e) {
             throw new RuntimeException(e);
