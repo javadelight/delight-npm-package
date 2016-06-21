@@ -99,31 +99,7 @@
 			</plugin>
 
 
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>gwt-maven-plugin</artifactId>
-				<version>${module.gwtVersion}</version>
-				<configuration>
-
-					<logLevel>INFO</logLevel>
-					<!-- -->
-					<validateOnly>true</validateOnly>
-					<gwtVersion>${module.gwtVersion}</gwtVersion>
-
-
-					<webappDirectory>${basedir}/src/main/webapp</webappDirectory>
-
-				</configuration>
-				<executions>
-					<execution>
-						<id>gwtcompile</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>compile</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+			
 
 
 			<!-- Keep the MANIFEST.MF used by eclipse in sync with the MANIFEST.MF 
