@@ -33,6 +33,8 @@ public class NpmPackage {
 
             ZipUtil.pack(workDir, params.target, false);
 
+            FilesJre.wrap(workDir).getParent().deleteFolder(FilesJre.wrap(workDir).getName());
+
         } catch (final Exception e) {
             throw new RuntimeException(e);
         }
