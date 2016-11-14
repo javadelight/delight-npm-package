@@ -47,7 +47,7 @@ public class NpmPackage {
         for (int i = 0; i < dependency.length(); i++) {
             final char c = dependency.charAt(i);
 
-            if (SanitizeStrings.isSimpleCharacter(c) || c == '@' || c == '/' || c == '.' || c == ':') {
+            if (SanitizeStrings.isUrlPathCharacter(c) || c == '@' || c == '/' || c == '.' || c == ':') {
                 res += c;
             }
 
