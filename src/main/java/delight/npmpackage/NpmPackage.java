@@ -10,7 +10,9 @@ import org.zeroturnaround.zip.ZipUtil;
 import de.mxro.file.Jre.FilesJre;
 import de.mxro.process.Spawn;
 
-public class NpmPackage {
+public final class NpmPackage {
+
+    private final static boolean ENABLE_LOG = false;
 
     public static void perform(final NpmPackageParameters params) {
 
@@ -19,6 +21,12 @@ public class NpmPackage {
             final File workDir = Files.createTempDirectory("npmwork").toFile();
 
             FilesJre.wrap(workDir).assertFile("index.js").setText(params.indexJs);
+
+            if (ENABLE_LOG) {
+                System.out.println(
+                        NpmPackage.class + ": Wrote file: " + FilesJre.wrap(workDir).get("index.js").getText());
+            }
+
             if (params.libJs != null) {
                 FilesJre.wrap(workDir).assertFile("lib.js").setText(params.libJs);
             }
