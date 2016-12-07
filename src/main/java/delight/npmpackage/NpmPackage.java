@@ -36,7 +36,7 @@ public final class NpmPackage {
                 if (!dependency.equals(sanitize(dependency))) {
                     throw new RuntimeException("Invalid npm dependency declaration: " + dependency);
                 }
-                Spawn.sh(workDir, "npm install " + sanitize(dependency) + " --save");
+                Spawn.sh(workDir, "nice -n13 npm install " + sanitize(dependency) + " --save");
             }
 
             ZipUtil.pack(workDir, params.target, false);
