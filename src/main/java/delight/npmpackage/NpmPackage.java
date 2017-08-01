@@ -1,21 +1,24 @@
 package delight.npmpackage;
 
-import delight.strings.SanitizeStrings;
-
 import java.io.File;
 import java.nio.file.Files;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.zeroturnaround.zip.ZipUtil;
 
 import de.mxro.file.Jre.FilesJre;
 import de.mxro.process.Spawn;
+import delight.strings.SanitizeStrings;
 
 public final class NpmPackage {
 
     private final static boolean ENABLE_LOG = false;
 
     public static void perform(final NpmPackageParameters params) {
-
+    	
+    	
+    	
         try {
 
             final File workDir = Files.createTempDirectory("npmwork").toFile();
@@ -31,8 +34,14 @@ public final class NpmPackage {
                 FilesJre.wrap(workDir).assertFile("lib.js").setText(params.libJs);
             }
             FilesJre.wrap(workDir).assertFile("package.json").setText(params.packageJson);
-
+            
+            // assure no duplicate dependencies
+            Set<String> npmDependencies = new HashSet<String>(params.npmDependencies.length);
             for (final String dependency : params.npmDependencies) {
+            	npmDependencies.add(dependency);
+            }
+            
+            for (final String dependency : npmDependencies) {
                 if (!dependency.equals(sanitize(dependency))) {
                     throw new RuntimeException("Invalid npm dependency declaration: " + dependency);
                 }
