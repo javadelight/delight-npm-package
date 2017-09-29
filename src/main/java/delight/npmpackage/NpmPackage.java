@@ -16,9 +16,7 @@ public final class NpmPackage {
     private final static boolean ENABLE_LOG = false;
 
     public static void perform(final NpmPackageParameters params) {
-    	
-    	
-    	
+
         try {
 
             final File workDir = Files.createTempDirectory("npmwork").toFile();
@@ -45,7 +43,13 @@ public final class NpmPackage {
                 if (!dependency.equals(sanitize(dependency))) {
                     throw new RuntimeException("Invalid npm dependency declaration: " + dependency);
                 }
-                Spawn.sh(workDir, "nice -n13 npm install " + sanitize(dependency) + " --save");
+                String stmt = "nice -n13 npm install " + sanitize(dependency) + " --save";
+                if (ENABLE_LOG) {
+                    System.out.println(
+                            NpmPackage.class + ": Performing '"+stmt+"'");
+                }
+                
+                Spawn.sh(workDir, stmt);
             }
 
             ZipUtil.pack(workDir, params.target, false);
